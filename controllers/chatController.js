@@ -37,3 +37,47 @@ exports.addContact = async (req, res) => {
     });
   }
 };
+
+exports.getChats = async (req, res) => {
+  try {
+    const user = await req.user.populate("chats");
+    const chats = user.chats.sort((a, b) => a.time - b.time);
+    res.status(200).json({
+      status: "Success",
+      data: {
+        chats,
+      },
+    });
+  } catch (error) {
+    console.log(error.toString());
+    res.status(404).json({
+      status: "Failed",
+      message: error.toString(),
+    });
+  }
+};
+
+exports.saveMessage = async (req, res) => {
+  try {
+    await Chat.findByIdAndUpdate(req.body.chatId, {
+      $set: { time: new Date() },
+      $push: {
+        messages: {
+          sender: req.user._id,
+          receiver: req.body.receiverId,
+          text: req.body.text,
+        },
+      },
+    });
+    res.status(201).json({
+      status: "Success",
+      data: null,
+    });
+  } catch (error) {
+    console.log(error.toString());
+    res.status(500).json({
+      status: "Failed",
+      message: error.toString(),
+    });
+  }
+};
