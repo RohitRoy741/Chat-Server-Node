@@ -58,3 +58,23 @@ exports.login = async (req, res) => {
     });
   }
 };
+
+exports.getUser = async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    if (!user) {
+      throw new Error("User not found");
+    }
+    res.status(200).send({
+      status: "Success",
+      userId: user._id,
+      username: user.username,
+    });
+  } catch (error) {
+    console.log(error.toString());
+    res.status(404).json({
+      status: "Failed",
+      message: error.toString(),
+    });
+  }
+};
