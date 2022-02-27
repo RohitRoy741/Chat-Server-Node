@@ -4,12 +4,16 @@
   "description": "'A backend node js server to facilitate instant messaging between peers'",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "supervisor server.js"
   },
   "author": "'Rohit'",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.3",
     "supervisor": "^0.12.0"
   }
 }
