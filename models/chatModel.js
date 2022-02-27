@@ -6,8 +6,8 @@ const chatSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
-  timestamp: {
-    type: Date(),
+  time: {
+    type: Date,
     default: new Date(),
   },
   messages: [
@@ -17,14 +17,14 @@ const chatSchema = new mongoose.Schema({
         required: true,
       },
       sender: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        type: String,
+        required: true,
       },
       receiver: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        type: String,
+        require: true,
       },
-      timestamp: {
+      time: {
         type: Date,
         default: new Date(),
       },
