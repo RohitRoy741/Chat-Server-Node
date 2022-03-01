@@ -42,10 +42,21 @@ exports.getChats = async (req, res) => {
   try {
     const user = await req.user.populate("chats");
     const chats = user.chats.sort((a, b) => a.time - b.time);
+    console.log(chats);
+    const usernames = [];
+    for (let chat of chats) {
+      let users = [];
+      for (let user of chat.users) {
+        const temp = await User.findById(user);
+        users.push(temp.username);
+      }
+      usernames.push(users);
+    }
     res.status(200).json({
       status: "Success",
       data: {
         chats,
+        usernames,
       },
     });
   } catch (error) {
