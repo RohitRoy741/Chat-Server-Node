@@ -6,8 +6,10 @@ const router = express.Router();
 
 router.use(authenticate.authenticate);
 
-router.get("/", chatController.getChats);
-router.post("/add", chatController.addContact);
-router.post("/message", chatController.saveMessage);
+router
+  .route("/")
+  .get(chatController.getChats)
+  .post(chatController.addContact)
+  .patch(chatController.saveMessage);
 
 module.exports = router;
