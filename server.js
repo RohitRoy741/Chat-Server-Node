@@ -13,7 +13,7 @@ const uri = process.env.DATABASE.replace(
   "<password>",
   process.env.DATABASE_PASSWORD
 );
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
 mongoose.connect(uri).then(() => console.log("Database connected"));
 
 let online = new Map();
