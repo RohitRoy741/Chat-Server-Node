@@ -13,7 +13,7 @@ const uri = process.env.DATABASE.replace(
   "<password>",
   process.env.DATABASE_PASSWORD
 );
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
 mongoose.connect(uri).then(() => console.log("Database connected"));
 
 let online = new Map();
@@ -25,6 +25,10 @@ io.on("connection", (socket) => {
   });
   socket.on("join-chat", (chatID) => {
     socket.join(chatID);
+  });
+  socket.on("add-contact", (chatID, username) => {
+    const receiver = online.get(username);
+    socket.to(receiver).emit("added-to-contact");
   });
   socket.on("client-outgoing-message", (chatId, message) => {
     console.log(chatId, message);
