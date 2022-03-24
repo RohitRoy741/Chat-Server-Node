@@ -26,6 +26,10 @@ io.on("connection", (socket) => {
   socket.on("join-chat", (chatID) => {
     socket.join(chatID);
   });
+  socket.on("add-contact", (chatID, username) => {
+    const receiver = online.get(username);
+    socket.to(receiver).emit("added-to-contact");
+  });
   socket.on("client-outgoing-message", (chatId, message) => {
     console.log(chatId, message);
     socket.to(chatId).emit("client-incoming-message", chatId, message);
