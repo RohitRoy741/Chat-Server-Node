@@ -31,6 +31,7 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
+  console.log(req.body);
   try {
     if (!req.body.username || !req.body.password) {
       throw new Error("Bad Request!");
@@ -48,6 +49,7 @@ exports.login = async (req, res) => {
       status: "Success",
       data: {
         token,
+        userId: user._id,
       },
     });
   } catch (error) {
@@ -65,7 +67,7 @@ exports.getUser = async (req, res) => {
     if (!user) {
       throw new Error("User not found");
     }
-    res.status(200).send({
+    res.status(200).json({
       status: "Success",
       userId: user._id,
       username: user.username,

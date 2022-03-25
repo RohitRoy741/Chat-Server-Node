@@ -5,7 +5,11 @@ const http = require("http");
 const { Server } = require("socket.io");
 
 const httpServer = http.createServer(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*",
+  },
+});
 
 dotenv.config({ path: "./config.env" });
 app.set("key", process.env.KEY);
@@ -18,21 +22,29 @@ mongoose.connect(uri).then(() => console.log("Database connected"));
 
 let online = new Map();
 io.on("connection", (socket) => {
+  socket.emit("hello", "hi");
   console.log(`user with socket id ${socket.id} connected`);
   socket.on("authentication", (username) => {
     online.set(username, socket.id);
     console.log(online);
   });
-  socket.on("join-chat", (chatID) => {
-    socket.join(chatID);
+  socket.on("join-chat", (chatId) => {
+    socket.join(chatId);
   });
-  socket.on("add-contact", (chatID, username) => {
+  socket.on("add-contact", (chatId, username, senderId, senderUsername) => {
     const receiver = online.get(username);
-    socket.to(receiver).emit("added-to-contact");
+    socket
+      .to(receiver)
+      .emit("added-to-contact", chatId, senderId, senderUsername);
   });
-  socket.on("client-outgoing-message", (chatId, message) => {
+  socket.on("receive", (id) => {
+    console.log("What?????");
+  });
+  socket.on("client-outgoing-message", (chatId, message, username) => {
     console.log(chatId, message);
-    socket.to(chatId).emit("client-incoming-message", chatId, message);
+    socket
+      .to(chatId)
+      .emit("client-incoming-message", chatId, message, username);
   });
 });
 

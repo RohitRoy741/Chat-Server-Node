@@ -41,7 +41,7 @@ exports.addContact = async (req, res) => {
 exports.getChats = async (req, res) => {
   try {
     const user = await req.user.populate("chats");
-    const chats = user.chats.sort((a, b) => a.time - b.time);
+    const chats = user.chats.sort((a, b) => b.time - a.time);
     console.log(chats);
     const usernames = [];
     for (let chat of chats) {
