@@ -4,6 +4,7 @@
   "description": "'A backend node js server to facilitate instant messaging between peers'",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "dev": "supervisor server.js"
   },
   "author": "'Rohit'",
