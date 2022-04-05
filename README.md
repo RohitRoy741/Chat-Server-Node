@@ -59,7 +59,7 @@ This resource deals with the Users and takes care of login and registration. The
 <p>Endpoint: http://127.0.0.1:3001/api/v1/users/register</p>
 <p>The registration endpoint takes the credentials:- Email, Username and Password, verifies those credentials, saves user to the database and sends a JSON web token as the response. This token can further be used to authenticate for requests. </p>
 
-Body: Raw(JSON)
+<p>Body: Raw(JSON)</p>
 
 ```json
 {
@@ -75,7 +75,7 @@ Body: Raw(JSON)
 <p>Endpoint: http://127.0.0.1:3001/api/v1/users/login </p>
 <p>The login endpoint verifies the user credentials received in the response body and sends a JSON web token on successful verification. </p>
 
-Body: Raw(JSON)
+<p>Body: Raw(JSON)</p>
 
 ```json
 {
@@ -103,7 +103,8 @@ This resource exposes the endpoints for managing chats of users. These chat obje
 <p>This Chat endpoint facilitates creation of chat objects which store the messages between the two users. The request should have a user id in the body and a token inside the Authorization header. The result is a chat object consisting of chat id required to send messages. The client should store the username of the requested user as it is not returned from the request.</p>
 
 <p>Request Headers:- Authorization: Bearer {{token}} </p>
-Body: Raw (JSON)
+<p>Body: Raw(JSON)</p>
+
 ```json
 {
   "id": "621b89438f358b17431650dc"
@@ -126,7 +127,7 @@ Body: Raw (JSON)
 
 <p>Request Headers:- Authorization: Bearer {{token}} </p>
 
-Body: Raw(JSON)
+<p>Body: Raw(JSON)</p>
 
 ```json
 {
